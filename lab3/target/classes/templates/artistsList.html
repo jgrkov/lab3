@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Add new Performer to Book</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            font-weight: bold;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+        }
+
+        section, aside {
+            width: 80%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .artist-info {
+            margin-bottom: 15px;
+        }
+
+        .artist-info b {
+            font-size: 16px;
+            color: #4CAF50;
+        }
+
+        .artist-info th:block {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .radio-group {
+            margin-top: 10px;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table td b {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Select the Artist to add to the List of Performers </h1>
+</header>
+
+<section>
+    <h2>Select artist:</h2>
+    <!-- Make changes to this code to dynamically display radio buttons for each artist as in the example -->
+    <form th:method="POST" th:action="@{/song/song-details}">
+        <input type="hidden" name="id" th:value="${id}" />
+
+        <div th:each="artist : ${artistList}" class="artist-info">
+            <b>Firstname:</b> <th:block th:text="${artist.getFirstName()}"></th:block><br>
+            <b>Lastname:</b> <th:block th:text="${artist.getLastName()}"></th:block><br>
+            <b>Bio:</b> <th:block th:text="${artist.getBio()}"></th:block>
+
+            <div class="radio-group">
+                <input type="radio" name="artistId" th:id="${artist.getId()}" th:value="${artist.getId()}">
+            </div>
+        </div>
+
+        <input type="submit" value="Add artist" class="submit-button">
+    </form>
+</section>
+
+<aside>
+    <table>
+        <tr>
+            <td><b>Track Id</b></td>
+            <td th:text="${id}">2</td>
+        </tr>
+    </table>
+</aside>
+
+</body>
+</html>

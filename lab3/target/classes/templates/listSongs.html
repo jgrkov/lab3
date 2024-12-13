@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Songs Homepage - Welcome to My Music Store</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            font-weight: bold;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+        }
+
+        main {
+            width: 80%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .song-selection {
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .song-selection h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .song-selection div {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .song-selection div:last-child {
+            border-bottom: none;
+        }
+
+        .song-selection label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .song-selection form input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .song-selection form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .song-selection form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .song-actions {
+            margin-top: 10px;
+        }
+
+        .song-actions button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .song-actions button:hover {
+            background-color: #45a049;
+        }
+
+        .add-song-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #4CAF50;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f4f4f9;
+            border: 1px solid #4CAF50;
+        }
+
+        .add-song-link:hover {
+            background-color: #e8e8e8;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to My Music Store</h1>
+</header>
+
+<main>
+    <div class="song-selection">
+        <h2>Choose a song:</h2>
+        <form th:method="POST" th:action="@{/artist}">
+
+            <div th:each="song : ${songList}">
+                <label>
+                    Title: <th:block th:text="${song.getTitle()}"></th:block><br>
+                    (Album: <th:block th:text="${song.getAlbum().getName()}"></th:block>)<br>
+                    Genre: <th:block th:text="${song.getGenre()}"></th:block><br>
+                    Release Year: <th:block th:text="${song.getReleaseYear()}"></th:block><br>
+                </label>
+                <input type="radio" name="songRadio"  th:value="${song.getId()}">
+
+                <div class="song-actions">
+                    <a th:href="@{/songs/edit-form/{id}(id=${song.id})}">
+                        <button type="button">Edit song</button>
+                    </a>
+
+                    <a th:href="@{/songs/delete/{id}(id=${song.id})}">
+                        <button type="button">Delete song</button>
+                    </a>
+                </div>
+                <br/><br/>
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <br><br><br><br>
+
+    <a th:href="@{/songs/add-form}" class="add-song-link">
+        Add new song
+    </a>
+
+</main>
+</body>
+</html>

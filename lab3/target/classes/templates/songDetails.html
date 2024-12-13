@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Song Details</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 36px;
+            border-bottom: 5px solid #333;
+        }
+
+        section {
+            width: 80%;
+            max-width: 1000px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #333;
+            margin: 20px 0 10px;
+            font-weight: bold;
+        }
+
+        .details {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .details b {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .details span {
+            font-size: 16px;
+            color: #666;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            font-size: 16px;
+            color: #555;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            font-weight: normal;
+            margin-top: 30px;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1 th:text="${song.getTitle()}">Song title</h1>
+</header>
+
+<section>
+    <div class="details">
+        <h2 th:text="${song.getGenre()}">Genre</h2>
+        <p><b>Release Year:</b> <span th:text="${song.getReleaseYear()}">2023</span></p>
+    </div>
+
+    <div class="details">
+        <h2>Performers:</h2>
+        <ul>
+            <li th:each="artist : ${song.getPerformers()}" th:text="${artist.getFirstName()} + ' ' + ${artist.getLastName()}">Jon Bon Jovi</li>
+        </ul>
+    </div>
+
+    <p>Visited: <a th:text="${count}">1</a></p>
+</section>
+
+</body>
+</html>
